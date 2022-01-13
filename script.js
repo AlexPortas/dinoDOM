@@ -2,6 +2,7 @@
 
 // Variable que me indica si el cielo está pintado o no
 let estaPintado = false;
+let nHuevo = 0;
 
 // Añadir una elemento HTML al DOM de forma dinámica
 
@@ -12,6 +13,7 @@ let estaPintado = false;
 let botonAovar = document.querySelector("#nuevo-huevo");
 botonAovar.onclick = aovar;
 
+let botonEclosiin = document.querySelector("#eclosionHuevo");
 
 let boton = document.querySelector("#dinoBoton");
 boton.addEventListener("click", (event) => { // ES6
@@ -111,12 +113,32 @@ function aovar() {
 
     huevo.src = "./img/dinohuevo.png";
     huevo.alt = "huevo dinoseto";
+    huevo.classList.add("huevo");
 
     huevo.addEventListener("dblclick", (event) => {
         event.target.src = "./img/eclosion.png";
+        huevo.classList.remove("huevo");
     });
 
     dinoContenedor.appendChild(huevo);
+
+    if(nHuevo == 0){
+        botonEclosiin.textContent = "Eclosiona huevos";
+        nHuevo--;
+    }
+
+    nHuevo++;
 }
 
+botonEclosiin.addEventListener("click", (event) => {
+    console.log(event);
+    let huevos = document.querySelectorAll(".huevo");
 
+    huevos.forEach(huevo => {
+        huevo.src = "./img/eclosion.png";
+        huevo.classList.remove("huevo");
+    });
+
+    nHuevo = 0;
+    botonEclosiin.textContent = "Eclosiona huevo";
+});
